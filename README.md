@@ -26,7 +26,7 @@ You can play the game live [here](https://mohd-arz.github.io/Captains-Revenge/).
 
 ## Contact Information
 
-If you have any feedback or Suggestion, please reach out to [me](mohammedarsh75@gmail.com). It'll improve me a lot.
+If you have any feedback or Suggestion, please reach out to [me](mailto:mohammedarsh75@gmail.com). It'll improve me a lot.
 
 
 
