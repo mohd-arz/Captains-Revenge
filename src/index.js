@@ -26,9 +26,9 @@ function GameBoard() {
   const board = [];
 
   // Board Creating
-  for (let i = 0; i < 5; i += 1) {
+  for (let i = 0; i < 10; i += 1) {
     board[i] = [];
-    for (let j = 0; j < 5; j += 1) {
+    for (let j = 0; j < 10; j += 1) {
       board[i][j] = '';
     }
   }
@@ -83,7 +83,11 @@ function GameBoard() {
   // Receiving an Attack with i and j coordinate and who's been attacked.
   function receiveAttack(i, j, whos) {
     let result = document.querySelector('.result');
-    let sunkResult = document.querySelector('.sunk-result');
+    let sunkResult = document.querySelector('.status');
+    let image = document.createElement('img');
+    let imageSunk = document.createElement('img');
+    result.textContent = '';
+
     if (board[i][j] === undefined || board[i][j] === 'hit' || board[i][j] === 'miss') return false;
 
     if (board[i][j] !== '') {
@@ -91,17 +95,20 @@ function GameBoard() {
         if (ship.name === board[i][j]) {
           board[i][j] = 'hit';
           ship.hit();
-          result.textContent = `It's a Hit for ${whos.name}`;
-
+          image.src = './SVG/hit.svg';
+          result.append(image, `It's a Hit for ${whos.name}`);
           if (ship.isSunk) {
-            sunkResult.textContent = `${whos.name}'s ${ship.name} Sunk`;
+            sunkResult.textContent = '';
+            imageSunk.src = './SVG/sunk.svg';
+            sunkResult.append(imageSunk, `${whos.name}'s ${ship.name} Sunk`);
           }
         }
       });
     }
     if (board[i][j] === '') {
       board[i][j] = 'miss';
-      result.textContent = `It's a Miss for ${whos.name}`;
+      image.src = './SVG/miss-inverted.svg';
+      result.append(image, `It's a Miss - ${whos.name}`);
     }
     return true;
   }
@@ -128,8 +135,8 @@ function shipPlacement(gameBoardpara, shipsArr) {
   shipsArr.forEach((ship) => {
     let i; let j;
     do {
-      i = Math.floor(Math.random() * 5);
-      j = Math.floor(Math.random() * 5);
+      i = Math.floor(Math.random() * 10);
+      j = Math.floor(Math.random() * 10);
     } while (!(gameBoardpara.placeShip(ship, i, j)));
   });
 }
@@ -144,15 +151,15 @@ function Player(name) {
 const gameInitialize = (function () {
   const gameBoard = new GameBoard();
   const gameBoardPC = new GameBoard();
-  const player = new Player('Arsh');
-  const pc = new Player('Mac');
+  const player = new Player('Player');
+  const pc = new Player('Pc');
 
   function shipInitializePlace(gameBoardpara, callback) {
-    const ship5 = new Ship('Carrier', 5);
-    const ship4 = new Ship('Battleship', 4);
-    const ship3 = new Ship('Cruiser', 3);
-    const ship21 = new Ship('Destroyer', 3);
-    const ship22 = new Ship('Patrol Boat', 2);
+    const ship5 = new Ship('Flying Dutchman', 5);
+    const ship4 = new Ship('Black Pearl', 4);
+    const ship3 = new Ship('Silent Mary', 3);
+    const ship21 = new Ship('Queen Anne\'s Revenge', 3);
+    const ship22 = new Ship('HMS Interceptor', 2);
 
     gameBoardpara.shipsArr.push(ship5);
     gameBoardpara.shipsArr.push(ship4);
@@ -182,3 +189,5 @@ GridCreation(gameInitialize.gameBoard, playerContainer);
 GridCreation(gameInitialize.gameBoardPC, pcContainer);
 
 calling(gameInitialize.gameBoard, gameInitialize.gameBoardPC, gameInitialize.player, gameInitialize.pc);
+
+export { Ship, GameBoard };

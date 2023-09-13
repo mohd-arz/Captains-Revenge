@@ -2,34 +2,117 @@
     margin: 0;padding: 0;
     box-sizing: border-box;
 }
+@font-face {
+    font-family: 'pirates-font';
+    src: url('/dist/SVG/pieces_of_eight/Pieces of Eight.ttf');
+}
 body{
-    font-family: sans-serif;
+    color: rgb(206, 206, 206);
+    font-family: pirates-font;
     height: 100vh;
     text-align: center;
+
+    background-color: black;
+    background: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)),  url('/dist/SVG/background-img.jpeg');
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+
 }
 .main-container{
     display: flex;
-    height: 100vh;
-    border: solid;
+    justify-content: center;
+    align-items: center;
     gap:2rem;
+    flex: 1;
+    padding: 1rem;
 }
 .player-container, .pc-container{
     display: grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(5,1fr);
-    border:2px solid;
-    width: 50%;
-    height: 80%;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(10,1fr);
+    /* border:2px solid; */
+    width: 37vw;
+    height: 37vw;
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    overflow: hidden;
+
 }
 .player-container > div , .pc-container > div{
-    border: 1px solid;
+    border: 1px solid black;
+
+}
+.header{
+    line-height: 1.5;
+    /* padding: 1rem; */
+    height: 100px;
 }
 div .hit{
-    background-color: rgb(225, 117, 117);
+    background-color: rgba(142, 1, 1, 0.85);
 }
 div .miss{
-    background-color: grey;
+    background-color: rgb(190, 190, 190);
 }
 .ship{
-    background-color: rgb(136, 219, 136);
+    background-color: rgba(45, 44, 44, 0.85);
+}
+img{
+    width: 40px;
+    height: 40px;
+    vertical-align:middle;
+}
+h1{
+    font-size: 3rem;
+}
+h2{
+    font-size: 2rem;
+}
+
+@media only screen and (max-width:850px){
+    .header{
+        height: 110px;
+    }
+    .main-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .player-container, .pc-container{
+        width: 50vw;
+        height: 50vw;
+    }
+    h1{
+        font-size: 2.5rem;
+    }
+    h2{
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width:450px){
+    .header{
+        height: 110px;
+    }
+    .main-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .player-container, .pc-container{
+        width: 80vw;
+        height: 80vw;
+    }
+    h1{
+        font-size: 2.5rem;
+    }
+    h2{
+        font-size: 1.5rem;
+    }
 }

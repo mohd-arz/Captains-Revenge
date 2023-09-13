@@ -1,6 +1,6 @@
 function GridCreation(gameBoard, container) {
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 5; j++) {
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
       const div = document.createElement('div');
       div.dataset.row = i;
       div.dataset.col = j;
@@ -14,32 +14,14 @@ function GridCreation(gameBoard, container) {
   }
 }
 
-function displayGrid(gameBoard, container) {
-  const divs = [...document.querySelectorAll(`${container} > div`)];
-  //   console.log(divs);
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 5; j++) {
-      divs.forEach((div) => {
-        if (div.dataset.row == i && div.dataset.col == j) {
-          if (container == '.pc-container') {
-            if (gameBoard.board[i][j] == 'miss' || gameBoard.board[i][j] == 'hit') { div.textContent = gameBoard.board[i][j]; }
-          } else if (gameBoard.board[i][j] == 'miss' || gameBoard.board[i][j] == 'hit') {
-            div.textContent = gameBoard.board[i][j];
-          }
-        }
-      });
-    }
-  }
-}
-
 function calling(gameBoard, gameBoardPC, player, pc) {
   const divs = [...document.querySelectorAll('.pc-container > div')];
   divs.forEach((div) => {
     div.addEventListener('click', (e) => {
       const status = document.querySelector('.status');
-      //   document.querySelector('.result').textContent = '';
-
       if (gameBoard.allSunkFn() === false && gameBoardPC.allSunkFn() === false && (gameBoardPC.board[e.target.dataset.row][e.target.dataset.col] != 'hit' && gameBoardPC.board[e.target.dataset.row][e.target.dataset.col] != 'miss')) {
+        status.textContent = "Don't let up! Press the attack!";
+
         gameBoardPC.receiveAttack(e.target.dataset.row, e.target.dataset.col, pc);
         const res = gameBoardPC.board[e.target.dataset.row][e.target.dataset.col];
 
@@ -49,7 +31,6 @@ function calling(gameBoard, gameBoardPC, player, pc) {
         if (res == 'miss') {
           e.target.classList.add('miss');
         }
-        displayGrid(gameBoardPC, '.pc-container');
 
         if (gameBoardPC.allSunkFn()) {
           player.winStatus = true;
@@ -61,8 +42,8 @@ function calling(gameBoard, gameBoardPC, player, pc) {
           let m; let n; let pcres;
           do {
             console.log('No of while running');
-            m = Math.floor(Math.random() * 5);
-            n = Math.floor(Math.random() * 5);
+            m = Math.floor(Math.random() * 10);
+            n = Math.floor(Math.random() * 10);
             pcres = gameBoard.receiveAttack(m, n, player);
           } while (!pcres);
 
@@ -70,7 +51,6 @@ function calling(gameBoard, gameBoardPC, player, pc) {
           pcres = gameBoard.board[m][n];
           playerdiv.forEach((div) => {
             if (div.dataset.row == m && div.dataset.col == n) {
-            // console.log(div);
               if (pcres == 'hit' || pcres == 'Sunk') {
                 div.classList.add('hit');
               }
@@ -79,7 +59,6 @@ function calling(gameBoard, gameBoardPC, player, pc) {
               }
             }
           });
-          displayGrid(gameBoard, '.player-container');
           if (gameBoard.allSunkFn()) {
             pc.winStatus = true;
             status.textContent = `${pc.name} won`;

@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import GameBoard, { Ship } from '../src';
+import { GameBoard, Ship } from '../src';
 
 let gameBoard;
 let ship21;
