@@ -1,0 +1,35 @@
+*{
+    margin: 0;padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: sans-serif;
+    height: 100vh;
+    text-align: center;
+}
+.main-container{
+    display: flex;
+    height: 100vh;
+    border: solid;
+    gap:2rem;
+}
+.player-container, .pc-container{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(5,1fr);
+    border:2px solid;
+    width: 50%;
+    height: 80%;
+}
+.player-container > div , .pc-container > div{
+    border: 1px solid;
+}
+div .hit{
+    background-color: rgb(225, 117, 117);
+}
+div .miss{
+    background-color: grey;
+}
+.ship{
+    background-color: rgb(136, 219, 136);
+}
